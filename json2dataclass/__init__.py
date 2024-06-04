@@ -45,8 +45,9 @@ def dclass2py(node: dclass, out: TextIO):
         out.write(f'\t{prop.name}: {type}\n')
 
 
-def cli(json_path: str, py_path: str, root_name: str = 'root'):
+def cli(json_path: str, root_name: str = 'root'):
     import json
+    import sys
 
     with open(json_path) as f:
         data = json.load(f)
@@ -54,8 +55,7 @@ def cli(json_path: str, py_path: str, root_name: str = 'root'):
     res = json2dataclass(root_name, data)
     assert isinstance(res, dclass)
 
-    with open(py_path, 'w') as f:
-        dclass2py(res, f)
+    dclass2py(res, sys.stdout)
 
 
 def main():
